@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/health', (req, res) => {
+  res.send("App is healthy - version 2");
   res.status(200).json({ status: 'ok' });
 });
 
