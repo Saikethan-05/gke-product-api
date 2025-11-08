@@ -1,0 +1,21 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/crack-adapter-476105-d3/product-api:$COMMIT_SHA', '.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/crack-adapter-476105-d3/product-api:$COMMIT_SHA']
+
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args:
+      [
+        'set',
+        'image',
+        'deployment/product-api',
+        'product-api=gcr.io/crack-adapter-476105-d3/product-api:$COMMIT_SHA',
+      ]
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=product-gke-cluster'
+
+images:
+  - 'gcr.io/crack-adapter-476105-d3/product-api:$COMMIT_SHA'
