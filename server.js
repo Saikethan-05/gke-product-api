@@ -16,10 +16,9 @@ app.get('/', (req, res) => {
   res.send('Welcome to the Product API');
 });
 
-app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'ok', message: 'App Is Healthy - Version 2' });
+app.get('/health', (_, res) => {
+  res.json({ status: 'ok', message: 'App is healthy - Version 2' });
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
