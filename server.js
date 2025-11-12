@@ -1,9 +1,8 @@
-
 // server.js
 const express = require('express');
 const dotenv = require('dotenv');
 const productRoutes = require('./routes/productRoutes');
-require("./db")
+require('./db');
 
 dotenv.config();
 const app = express();
@@ -13,14 +12,15 @@ app.use(express.json());
 app.use('/products', productRoutes);
 
 app.get('/', (req, res) => {
+  console.log(JSON.stringify({ event: 'root_accessed', status: 'success', time: new Date().toISOString() }));
   res.send('Welcome to the Product API');
 });
 
-app.get('/health', (_, res) => {
-  res.json({ status: 'ok', message: 'App is healthy - Version 2' });
+app.get('/health', (req, res) => {
+  console.log(JSON.stringify({ event: 'health_check', status: 'ok', message: 'App is healthy', time: new Date().toISOString() }));
+  res.status(200).json({ status: 'ok', message: 'App is healthy - version 2' });
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(JSON.stringify({ event: 'server_start', port: PORT, time: new Date().toISOString() }));
 });
-
