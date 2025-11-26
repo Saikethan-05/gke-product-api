@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 app.get('/health', (req, res) => {
   console.log(JSON.stringify({ event: 'health_check', status: 'ok', message: 'App is healthy', time: new Date().toISOString() }));
-  res.status(200).json({ status: 'ok', message: 'App is healthy - version 3' });
+  res.status(200).json({ status: 'ok', message: 'App is healthy,okay' });
 });
 
 app.listen(PORT, () => {
